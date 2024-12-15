@@ -41,7 +41,7 @@ jobs:
       run: docker images
 
     - name: Push Docker image to Docker Hub
-      run: docker push ${{ vars.username}} /lanafatemani:latest
+      run: docker push ${{ vars.username}}/lanafatemani:latest
       
     - name: Show Apps Running
       run: docker ps
