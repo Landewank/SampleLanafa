@@ -54,7 +54,7 @@ jobs:
         key: ${{ secrets.VPS_PRIVATE_KEY }}
         port: 22
         script: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/lanafatemani:latest
-          docker stop my-react-app || true
-          docker rm my-react-app || true
-          docker run -d --name lanafatemani -p 3001:3000 ${{vars.USERNAME }}/lanafatemani:latest
+          sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/lanafatemani:latest
+          sudo docker stop lanafatemani || true
+          sudo docker rm lanafatemani || true
+          sudo docker run -d --name lanafatemani -p 3001:3000 ${{vars.USERNAME }}/lanafatemani:latest
