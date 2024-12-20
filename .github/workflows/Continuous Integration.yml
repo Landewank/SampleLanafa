@@ -9,9 +9,9 @@ on:
 jobs:
   install-dependencies:
     name: Install Dependencies
-    runs-on: ubuntu-latest  # Menggunakan runner Ubuntu
+    runs-on: ubuntu-latest  
     container:
-      image: node:23.4-alpine3.21  # Menggunakan Docker image Node.js
+      image: node:23.4-alpine3.21  
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -20,10 +20,9 @@ jobs:
   build-image:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest  # Menggunakan runner Ubuntu
-    container:
-      image: docker:27.3.1  # Menggunakan Docker image
     services:
-      - name: docker:19.03.12-dind  # Docker-in-Docker service
+      docker:
+        image: docker:19.03.12-dind  # Docker-in-Docker service
         options: --privileged  # Menambahkan opsi privileged agar Docker bisa berjalan dengan benar dalam container
     steps:
       - uses: actions/checkout@v4
@@ -42,11 +41,9 @@ jobs:
   deploy:
     name: Deploy Application
     runs-on: ubuntu-latest  # Menggunakan runner Ubuntu
-    container:
-      image: ubuntu:24.10  # Menggunakan Docker image Ubuntu 24.10
     steps:
       - name: Install SSH Client
-        run: apt-get update && apt-get install -y ssh
+        run: sudo apt-get update && sudo apt-get install -y ssh
       - name: Deploy to Remote Server
         uses: appleboy/ssh-action@master
         with:
