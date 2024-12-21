@@ -9,9 +9,7 @@ on:
 jobs:
   install-dependencies:
     name: Install Dependencies
-    runs-on: ubuntu-latest  
-    container:
-      image: node:23.4-alpine3.21  
+    runs-on: ubuntu-24.04 
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -19,11 +17,7 @@ jobs:
 
   build-image:
     name: Build and Push Docker Image
-    runs-on: ubuntu-latest  # Menggunakan runner Ubuntu
-    services:
-      docker:
-        image: docker:19.03.12-dind  # Docker-in-Docker service
-        options: --privileged  # Menambahkan opsi privileged agar Docker bisa berjalan dengan benar dalam container
+    runs-on: ubuntu-24.04   # Menggunakan runner Ubuntu
     needs: install-dependencies  # Menunggu job install-dependencies selesai sebelum berjalan
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +35,7 @@ jobs:
 
   deploy:
     name: Deploy Application
-    runs-on: ubuntu-latest  # Menggunakan runner Ubuntu
+    runs-on: ubuntu-24.04   # Menggunakan runner Ubuntu
     needs: build-image  # Menunggu job build-image selesai sebelum berjalan
     steps:
       - name: Install SSH Client
