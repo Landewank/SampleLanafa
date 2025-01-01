@@ -42,8 +42,6 @@ jobs:
     runs-on: ubuntu-24.04   # Menggunakan runner Ubuntu
     needs: build-image  # Menunggu job build-image selesai sebelum berjalan
     steps:
-      - name: Install SSH Client
-        run: sudo apt-get update && sudo apt-get install -y ssh
       - name: Deploy to Remote Server
         uses: appleboy/ssh-action@master
         with:
