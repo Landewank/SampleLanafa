@@ -7,40 +7,40 @@ on:
     branches: [ "release" ]
 
 jobs:
-  install-dependencies:
-    name: Install Dependencies
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 23.5.0
-      - name: Install dependencies
-        run: npm install
+  # install-dependencies:
+  #   name: Install Dependencies
+  #   runs-on: ubuntu-24.04
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 23.5.0
+  #     - name: Install dependencies
+  #       run: npm install
 
-  build-image:
-    name: Build and Push Docker Image
-    runs-on: ubuntu-24.04   # Menggunakan runner Ubuntu
-    needs: install-dependencies  # Menunggu job install-dependencies selesai sebelum berjalan
-    steps:
-      - uses: actions/checkout@v4
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ vars.USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Build Docker image
-        run: docker build -t ${{ vars.USERNAME }}/lanafatemani:latest .
-      - name: Show Docker Images
-        run: docker images
-      - name: Push Docker image to DockerHub
-        run: docker push ${{ vars.USERNAME }}/lanafatemani:latest
+  # build-image:
+  #   name: Build and Push Docker Image
+  #   runs-on: ubuntu-24.04   # Menggunakan runner Ubuntu
+  #   needs: install-dependencies  # Menunggu job install-dependencies selesai sebelum berjalan
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Login to DockerHub
+  #       uses: docker/login-action@v2
+  #       with:
+  #         username: ${{ vars.USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_PASSWORD }}
+  #     - name: Build Docker image
+  #       run: docker build -t ${{ vars.USERNAME }}/lanafatemani:latest .
+  #     - name: Show Docker Images
+  #       run: docker images
+  #     - name: Push Docker image to DockerHub
+  #       run: docker push ${{ vars.USERNAME }}/lanafatemani:latest
         
   deploy:
     name: Deploy Application
     runs-on: ubuntu-24.04   # Menggunakan runner Ubuntu
-    needs: build-image  # Menunggu job build-image selesai sebelum berjalan
+    # needs: build-image  # Menunggu job build-image selesai sebelum berjalan
     steps:
       - name: Deploy to Remote Server
         uses: appleboy/ssh-action@master
