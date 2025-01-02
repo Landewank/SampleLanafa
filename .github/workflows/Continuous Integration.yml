@@ -42,14 +42,14 @@ jobs:
     runs-on: ubuntu-24.04   # Menggunakan runner Ubuntu
     # needs: build-image  # Menunggu job build-image selesai sebelum berjalan
     steps:
-      - name: Install SSH Client
-        run: sudo apt-get update && sudo apt-get install -y ssh
+      # - name: Install SSH Client
+      #   run: sudo apt-get update && sudo apt-get install -y ssh
       - name: Deploy to Remote Server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.VPS_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
             sudo docker pull ${{ vars.USERNAME }}/lanafatemani:latest
